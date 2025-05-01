@@ -1,0 +1,58 @@
+
+  <ion-header class="transparent-header">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end" mode="ios" class="cart-btn" [routerLink]="['/', 'home', 'item', item?.id, 'cart']">
+        <ion-icon name="bag-handle" slot="icon-only"></ion-icon>
+        @if (totalItems > 0) {
+          <ion-badge color="danger" class="cart-badge">
+            {{ totalItems }}
+          </ion-badge>
+        }
+      </ion-buttons>
+      
+    </ion-toolbar>
+  </ion-header>
+
+
+  <!-- Banner Image with Ratings Overlay -->
+  <div class="item-banner">
+    <img [src]="item?.cover" alt="Item Cover" />
+    <div class="rating-overlay">
+      <ng-container *ngFor="let star of starsArray; let i = index">
+        <ion-icon
+          [name]="i < item?.rating ? 'star' : 'star-outline'"
+          color="warning"
+        ></ion-icon>
+      </ng-container>
+    </div>
+  </div>
+<ion-content>
+  <!-- Details Card -->
+  <div class="item-detail-content ion-padding">
+    <h2>{{ item?.name | uppercase }}</h2>
+    <p>{{ item?.description }}</p>
+    <p>
+      <ion-icon name="pricetag-outline"></ion-icon>
+      {{ currency }} <strong>{{ item?.price }}</strong>
+    </p>
+
+    <ion-button
+      (click)="additem()"
+      expand="block"
+      [color]="addToBag ? 'success' : 'primary'"
+      shape="round"
+    >
+      <ion-icon name="bag-handle" slot="start"></ion-icon>
+      {{ addToBag ? addToBag : 'Add To Bag' }}
+    </ion-button>
+
+    <ion-button expand="block" color="primary" shape="round" class="buy-btn">
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      Buy Now
+    </ion-button>
+  </div>
+</ion-content>

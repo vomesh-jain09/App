@@ -1,0 +1,101 @@
+
+
+<ion-content class="signup">
+  <div class="form-wrapper">
+    <div class="button-container">
+      <ion-button expand="full" (click)="showSignup = true" [color]="showSignup ? 'primary' : 'medium'"
+        class="toggle-button">Signup</ion-button>
+      <ion-button expand="full" (click)="showSignup = false" [color]="!showSignup ? 'primary' : 'medium'"
+        class="toggle-button">Login</ion-button>
+    </div>
+
+    <!-- Signup Form -->
+    <div *ngIf="showSignup; else loginContent">
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+       
+        <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input type="text"style="color: white;" [(ngModel)]="formData.username" name="username" required
+            #username="ngModel"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="username.invalid && username.touched"></ion-text>
+
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" style="color: white;" [(ngModel)]="formData.email" name="email" required email #email="ngModel"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="email.invalid && email.touched"></ion-text>
+
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password"style="color: white;" [(ngModel)]="formData.password" name="password" required
+            #password="ngModel"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="password.invalid && password.touched"></ion-text>
+
+        <ion-item>
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input type="password"  style="color: white;" [(ngModel)]="formData.confirmPassword" name="confirmPassword" required
+            #confirmPassword="ngModel"></ion-input>
+        </ion-item>         
+        <ion-text color="danger"
+          *ngIf="confirmPassword.touched && formData.confirmPassword !== formData.password"></ion-text>
+
+        <ion-button expand="full" type="submit">Sign Up</ion-button>
+      </form>
+      <div class="center-container">
+        <h1>OR</h1>
+      </div>
+
+      <!-- Social Media Icons -->
+      <div class="social-icons">
+        <a href="#" target="_blank">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <ng-template #loginContent>
+      <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+        
+
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" style="color: white;" [(ngModel)]="loginData.email" name="email" required email
+            #loginEmail="ngModel"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="loginEmail.invalid && loginEmail.touched"></ion-text>
+
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password" style="color: white;" [(ngModel)]="loginData.password" name="password" required
+            #loginPassword="ngModel"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="loginPassword.invalid && loginPassword.touched"></ion-text>
+
+        <ion-button expand="full" type="submit">Login</ion-button>
+      </form>
+      <div class="center-container">
+        <h1>OR</h1>
+      </div>
+      <div class="social-icons">
+        <a href="#" target="_blank">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" target="_blank">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

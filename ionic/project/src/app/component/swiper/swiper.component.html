@@ -1,0 +1,19 @@
+<div class="swiper-container swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide card-slide" *ngFor="let item of slides">
+      <ion-card>
+        <div class="image-container">
+          <img [src]="item.image" />
+          <div class="overlay-title">
+            {{ item.title }}
+          </div>
+        </div>
+<!-- 
+        <ion-card-content>
+          {{ item.description }}
+        </ion-card-content> -->
+      </ion-card>
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header-row">
+      <!-- Title -->
+      <div class="header-title">
+        Gift Shop
+      </div>
+
+      <!-- Searchbar -->
+      <ion-searchbar 
+        #searchInput
+        debounce="500"
+        placeholder="Search for Gift"
+        mode="ios"
+        (ionInput)="onSearchChange($event)">
+      </ion-searchbar>
+
+      <!-- Cart Button -->
+      <ion-button 
+        color="primary" 
+        fill="clear" 
+        [routerLink]="['/', 'home', 'cart']" 
+        slot="end" 
+        class="cart-btn" 
+        style="font-size: large;">
+        <ion-icon name="bag-handle" slot="icon-only"></ion-icon>
+        <ion-badge *ngIf="totalitems > 0" class="cart-badge">
+          {{ totalitems }}
+        </ion-badge>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+<app-swiper></app-swiper>
+
+<ion-row>
+  @for(item of items; track $index){
+    <ion-col size="6">
+     <ion-card [routerLink]="['/','home','item',item?.id]">
+          <ion-thumbnail>
+            <ion-img [src]="item?.cover"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <ion-text color="dark">
+                {{item?.name|uppercase}}
+            </ion-text>
+            <p>
+              <ion-text color="dark">{{currency}} <strong>{{item?.price}}</strong></ion-text>
+            </p>
+            <ion-text color="dark" class="rating"> <ng-container *ngFor="let star of starsArray; let i = index">
+              <ion-icon 
+                [name]="i < item?.rating ? 'star' : 'star-outline'" 
+                color="warning">
+              </ion-icon>
+            </ng-container></ion-text>
+          </ion-label>
+     </ion-card>
+    </ion-col>
+  }
+</ion-row>
+</ion-content>

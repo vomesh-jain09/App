@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Add Shipping Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <form (ngSubmit)="save()" #addressForm="ngForm">
+    <ion-list class="form-list">
+
+      <!-- Full Name -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">Full Name</ion-label>
+        <ion-input [(ngModel)]="address.fullName" name="fullName" required #fullName="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)">
+        <p class="error-msg">Full Name is required.</p>
+      </ion-text>
+
+      <!-- Phone Number -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">Phone Number</ion-label>
+        <ion-input type="tel" [(ngModel)]="address.phone" name="phone" required #phone="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+        <p class="error-msg">Phone Number is required.</p>
+      </ion-text>
+
+      <!-- House / Flat No. -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">House / Flat No.</ion-label>
+        <ion-input [(ngModel)]="address.house" name="house" required #house="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="house.invalid && (house.dirty || house.touched)">
+        <p class="error-msg">House / Flat No. is required.</p>
+      </ion-text>
+
+      <!-- Street / Locality -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">Street / Locality</ion-label>
+        <ion-input [(ngModel)]="address.street" name="street" required #street="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="street.invalid && (street.dirty || street.touched)">
+        <p class="error-msg">Street / Locality is required.</p>
+      </ion-text>
+
+      <!-- City -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">City</ion-label>
+        <ion-input [(ngModel)]="address.city" name="city" required #city="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="city.invalid && (city.dirty || city.touched)">
+        <p class="error-msg">City is required.</p>
+      </ion-text>
+
+      <!-- State -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">State</ion-label>
+        <ion-input [(ngModel)]="address.state" name="state" required #state="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="state.invalid && (state.dirty || state.touched)">
+        <p class="error-msg">State is required.</p>
+      </ion-text>
+
+      <!-- Pincode -->
+      <ion-item lines="inset" class="form-item">
+        <ion-label position="floating" class="input-label">Pincode</ion-label>
+        <ion-input type="number" [(ngModel)]="address.pincode" name="pincode" required #pincode="ngModel" class="input-field"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="pincode.invalid && (pincode.dirty || pincode.touched)">
+        <p class="error-msg">Pincode is required.</p>
+      </ion-text>
+
+    </ion-list>
+
+    <!-- Submit Button -->
+    <div class="ion-padding-top">
+      <ion-button expand="block" shape="round" type="submit" color="primary" [disabled]="addressForm.invalid">
+        Save and Proceed to Pay
+      </ion-button>
+    </div>
+  </form>
+
+</ion-content>

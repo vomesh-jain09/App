@@ -1,0 +1,73 @@
+.cart-page {
+  .total-items {
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .cart-item {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+  }
+
+  .item-name {
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .item-price {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .quantity-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 8px;
+  }
+
+  .coupon-card {
+    margin: 0 10px;
+    border-radius: 10px;
+    background: #f9f9f9;
+  }
+
+  .selected-coupon {
+    background-color: #e0ffe0;
+    border-left: 4px solid #10dc60;
+    padding-left: 10px;
+  }
+
+  .billing {
+    margin-top: 20px;
+  }
+
+  .total-to-pay {
+    border-top: 1px dashed #ccc;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .checkout-btn-container {
+    margin-top: 20px;
+  }
+
+  .empty-screen {
+    margin-top: 50px;
+    .empty-icon {
+      font-size: 60px;
+    }
+    .empty-text {
+      font-size: 18px;
+      color: #999;
+    }
+  }
+  .total-items {
+    justify-content: center;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+  }
+  
+}

@@ -1,0 +1,90 @@
+.signup{
+    --background: none;
+    background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('https://img.freepik.com/free-photo/3d-rendering-hexagonal-texture-background_23-2150796421.jpg') no-repeat center center / cover;
+}
+.form-wrapper {
+    padding: px;
+    max-width: 400px;
+    margin-top: 15px;
+    margin: auto;
+ background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    ion-button {
+        width: 48%;
+    }
+}
+
+h2 {
+    text-align: center;
+    // margin: 10px 0 20px;
+    font-weight: bold;
+    color: #222;
+}
+
+ion-item {
+    --background: rgba(0, 0, 0, 0.1);
+
+    --border-radius: 8px;
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+ion-label {
+    color: white !important;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+ion-input {
+    color: #000;
+    --padding-start: 10px;
+    --padding-end: 10px;
+}
+
+ion-button {
+    margin-top: 10px;
+}
+
+.center-container {
+    text-align: center;
+    margin: 20px 0;
+
+    h1 {
+        font-size: 16px;
+        color: white;
+    }
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    font-size: 24px;
+    color: white;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: #3880ff;
+        }
+    }
+}
+
+ion-text[color="danger"] {
+    font-size: 12px;
+    margin-left: 12px;
+    display: block;
+}

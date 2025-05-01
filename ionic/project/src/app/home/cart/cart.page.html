@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="previous"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Your Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding cart-page">
+
+  <!-- Display Cart Items if Cart is Not Empty -->
+  <ng-container *ngIf="model && model.items?.length > 0">
+    <ion-label color="medium">{{ model?.totalItems }} items in cart</ion-label>
+
+    <ng-container *ngFor="let item of model?.items; trackBy: trackById">
+      <ion-card class="cart-item">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="item?.cover"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h2 class="item-name">{{ item?.name }}</h2>
+            <p class="item-price">{{ currency }}{{ item?.price }}</p>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button fill="clear" color="danger" (click)="removeQuantity(item)">
+              <ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-text class="quantity-text">{{ item?.quantity }}</ion-text>
+            <ion-button fill="clear" color="success" (click)="addQuantity(item)">
+              <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-card>
+    </ng-container>
+
+    <!-- Coupon Section -->
+    <ion-list lines="none" class="coupon-section">
+      <ion-item-divider color="light">
+        <ion-label color="medium">🎁 Offers & Benefits</ion-label>
+      </ion-item-divider>
+      <ion-card class="coupon-card">
+        <ng-container *ngIf="!selectedCoupon">
+          <ion-item button detail class="offer" (click)="openCouponModal()">
+            <ion-label>Apply coupon</ion-label>
+            <ion-icon name="pricetags-outline" slot="end" color="primary"></ion-icon>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="selectedCoupon">
+          <ion-item class="offer selected-coupon">
+            <ion-label>
+              <strong>{{ selectedCoupon?.code }}</strong> applied
+              <p>
+                <ion-text color="success">
+                  {{ currency }}{{ selectedCoupon?.saved | number: '0.2-2' }} savings
+                </ion-text>
+              </p>
+              <p *ngIf="selectedCoupon?.isPercentage">
+                Discount: {{ selectedCoupon?.saved }}% off
+              </p>
+              <p *ngIf="!selectedCoupon?.isPercentage">
+                Discount: {{ currency }}{{ selectedCoupon?.saved | number: '0.2-2' }}
+              </p>
+            </ion-label>
+            <ion-button slot="end" fill="clear" color="danger" [strong]="true" (click)="removeCoupon()">
+              <ion-text>Remove</ion-text>
+            </ion-button>
+            <ion-icon name="checkmark-circle" color="success" slot="end"></ion-icon>
+          </ion-item>
+        </ng-container>
+      </ion-card>
+    </ion-list>
+
+    <!-- Billing Section -->
+    <ion-list lines="none" class="billing">
+      <ion-list-header>
+        <ion-label color="medium">💳 Billing Details</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Item Total</ion-label>
+        <ion-text slot="end">{{ currency }}{{ model?.totalPrice | number: '0.2-2' }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Delivery Charges</ion-label>
+        <ion-text slot="end">{{ currency }}{{ model?.total_delivery_charge | number: '0.2-2' }}</ion-text>
+      </ion-item>
+
+      <ng-container *ngIf="model?.tax && model?.tax > 0">
+        <ion-item>
+          <ion-label>Tax Charges</ion-label>
+          <ion-text slot="end">{{ currency }}{{ model?.tax | number: '0.2-2' }}</ion-text>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf="selectedCoupon">
+        <ion-item>
+          <ion-label color="medium">Applied Discount</ion-label>
+          <ion-text slot="end" color="success">
+            <strong>
+              <ng-container *ngIf="selectedCoupon.isPercentage">
+                {{ selectedCoupon?.saved }}% off
+              </ng-container>
+              <ng-container *ngIf="!selectedCoupon.isPercentage">
+                {{ currency }}{{ selectedCoupon?.saved | number: '0.2-2' }}
+              </ng-container>
+            </strong>
+          </ion-text>
+        </ion-item>
+      </ng-container>
+
+      <ion-item class="dashedBorderTop total-to-pay">
+        <ion-label><strong>To Pay</strong></ion-label>
+        <ion-text slot="end" color="primary">
+          <strong>{{ currency }}{{ model?.grandTotal | number: '0.2-2' }}</strong>
+        </ion-text>
+      </ion-item>
+
+      <!-- Display Address Section -->
+      <ng-container *ngIf="address">
+        <ion-card class="address-card">
+          <ion-item>
+            <ion-label>
+              <h2>Shipping Address</h2>
+              <p>{{ address.fullName }}</p>
+              <p>{{ address.house }}, {{ address.street }}</p>
+              <p>{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+              <p>{{ address.phone }}</p>
+            </ion-label>
+            <ion-button fill="clear" slot="end" (click)="openEditAddressModal()">
+              <ion-icon name="create-outline" slot="icon-only" color="primary"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card>
+      </ng-container>
+
+    </ion-list>
+
+  </ng-container>
+
+  <!-- Display Empty Cart Message -->
+  <ng-container *ngIf="!(model && model.items?.length > 0)">
+    <div class="empty-screen ion-text-center">
+      <ion-icon name="bag-handle-outline" color="medium" class="empty-icon"></ion-icon>
+      <p class="empty-text">Your cart is empty</p>
+    </div>
+  </ng-container>
+
+</ion-content>
+
+<!-- Conditionally Display Footer Section (Checkout or Payment Button) -->
+<ng-container *ngIf="model && model.items?.length > 0">
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" color="danger" (click)="showPaymentSection ? openPayment() : checkout()">
+        {{ showPaymentSection ? 'Payment' : 'Check Out' }}
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ng-container>
+
+<!-- Show payment component -->
+<app-payment *ngIf="displayPaymentComponent"></app-payment>

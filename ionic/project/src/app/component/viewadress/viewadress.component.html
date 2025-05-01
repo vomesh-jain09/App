@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Choose an Address</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss(null)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Address Selection with Radio -->
+  <ng-container *ngIf="addresses && addresses.length > 0; else noAddress">
+    <ion-radio-group [(ngModel)]="selectedAddress">
+      <ion-list>
+        <ion-item *ngFor="let address of addresses">
+          <ion-radio slot="start" [value]="address"></ion-radio>
+          <ion-label>
+            <h3>{{ address.fullName }}</h3>
+            <p>{{ address.house }}, {{ address.street }}</p>
+            <p>{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+            <p>Phone: {{ address.phone }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-radio-group>
+
+    <div class="ion-padding-top">
+      <ion-button expand="block" color="primary" [disabled]="!selectedAddress" (click)="dismiss(selectedAddress)">
+        Deliver to this Address
+      </ion-button>
+    </div>
+  </ng-container>
+
+  <!-- If no addresses -->
+  <ng-template #noAddress>
+    <ion-text color="medium">
+      <p>No addresses found. Please add one.</p>
+    </ion-text>
+  </ng-template>
+
+  <!-- Add New Address -->
+  <ion-item lines="none" (click)="dismiss(1)">
+    <ion-icon slot="start" name="add" color="primary"></ion-icon>
+    <ion-label color="primary">Add New Address</ion-label>
+  </ion-item>
+
+</ion-content>
